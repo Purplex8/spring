@@ -36,4 +36,8 @@ public class bookApiController {
     public BookEntity edit(@PathVariable Integer id, @RequestBody BookEntity request) {
         return bookService.edit(request).orElseThrow(ResourceNotFoundException::new);
     }
+    @DeleteMapping("/api/v1/book/{id}")
+    public boolean delete(@PathVariable("id") Integer id) {
+        return bookService.delete(id);
+    }
 }
