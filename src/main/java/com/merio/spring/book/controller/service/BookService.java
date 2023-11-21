@@ -3,10 +3,7 @@ package com.merio.spring.book.controller.service;
 import com.merio.spring.book.controller.entity.BookEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -57,5 +54,18 @@ public class BookService {
         }
         bookStorage.remove(book.get());
         return true;
+    }
+    public Optional <BookEntity> editPart(Integer id, Map<String, String> fields) {
+        Optional<BookEntity> optionalBookEntity = byId(id);
+        if (optionalBookEntity.isEmpty()) return Optional.empty();
+        BookEntity book = optionalBookEntity.get();
+
+        for (String key : fields.keySet()) {
+            switch (key) {
+                case "title" -> book.setTitle(fields.get(key));
+                case "discription" -> book.setDescription(fields.get(key));
+            }
+        }
+        return Optional.of(book);
     }
 }
